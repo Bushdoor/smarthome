@@ -3,13 +3,16 @@
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_def.h"
 #include "stm32f4xx_hal_i2c.h"
-// #include <stdint.h>
 #include <stdio.h>
 #include <stdarg.h>
 
 static uint8_t lcd1602_addr = 0x27<<1;
 static bool backlight_state = true;
 static bool lcd_ok = false;
+
+// 달력 출력용 RTC typedef
+static ds1302Time_t rtc_time = {0};
+
 
 static HAL_StatusTypeDef i2c_send(uint8_t *buf, uint16_t len) {
     HAL_StatusTypeDef ret = HAL_I2C_Master_Transmit(&hi2c1, lcd1602_addr, buf, len, 10);
@@ -144,4 +147,28 @@ void lcdOpen() {
   lcd1602Print("Welcome Home");
   HAL_Delay(3000);
 
+}
+
+void lcdThermometer(float temperature, float humidity) {
+    lcd1602Cursor(0, 0);
+    lcd1602Printf("Temperature:%.1f",temperature);
+    lcd1602Cursor(1, 1);
+    lcd1602Printf("Humidity:%.2f",humidity);
+}
+
+void lcdWeather() {
+    lcd1602Clear();
+    lcd1602Cursor(0, 3);
+    lcd1602Printf("");
+    lcd1602Cursor(1, 2);
+    lcd1602Printf("");
+}
+
+void lcdCalender() {
+    ds1302GetDateTime(&rtc_time);
+    // lcd1602Clear();
+    lcd1602Cursor(0, 0);
+    lcd1602Printf("Date:%.2d %.2d %.2d",rtc_time.year, rtc_time.month, rtc_time.day);
+    lcd1602Cursor(1, 0);
+    lcd1602Printf("Time: %.2d:%.2d:%.2d", rtc_time.hour, rtc_time.min, rtc_time.sec);
 }

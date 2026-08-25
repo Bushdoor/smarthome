@@ -1,6 +1,8 @@
 #pragma once
 
 #include "main.h"
+#include "myRtc.h" // 달력용 RTC
+
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -16,3 +18,9 @@ void lcd1602Backlight(bool on);
 
 
 void lcdOpen(void);
+
+// 기존코드 기준
+// lcdThermometer(dht_data.temperature, dht_data.humidity)로 사용
+void lcdThermometer(float temperature, float humidity);
+
+void lcdCalender();
