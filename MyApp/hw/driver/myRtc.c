@@ -254,4 +254,5 @@ void ds1302Init(void)
     /* 항상 빌드 시점의 날짜/시간으로 갱신되도록 설정 */
     // ds1302SetBuildTime();
   }
+
 }

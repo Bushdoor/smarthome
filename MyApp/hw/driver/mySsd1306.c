@@ -330,7 +330,7 @@ void ssd1306Printf(int16_t x, int16_t y, uint8_t color, const char *fmt, ...) {
     ssd1306DrawString(x,y, buf, color);
 }
 
-// badapple용
+// 화면 한장 다받으면 출력
 void ssd1306DrawFrame(const uint8_t *frame)
 {
     memcpy(

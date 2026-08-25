@@ -29,8 +29,8 @@ PUTCHAR_PROTOTYPE
      * USART1 → PC → Teleplot
      */
     HAL_UART_Transmit(
-        &huart2, // Teleplot 에서 printf 보려면 이거 uart2
-        // &huart1, // Teleplot 안보고 ssd1306에서 BadApple 보려면 uart1
+        // &huart2, // Teleplot 에서 printf 보려면 이거 uart2
+        &huart1, // Teleplot 안보고 ssd1306에서 BadApple 보려면 uart1
         (uint8_t *)&ch,
         1,
         HAL_MAX_DELAY
@@ -41,7 +41,7 @@ PUTCHAR_PROTOTYPE
 
 
 /* =========================================================
- * Bad Apple UART2
+ * movie UART2
  *
  * 128 x 64 / 8 = 1024 bytes
  * ========================================================= */

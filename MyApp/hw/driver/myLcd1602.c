@@ -139,7 +139,6 @@ void lcd1602Printf(const char *fmt, ...) {
 }
 
 void lcdOpen() {
-    
   lcd1602Clear();
   lcd1602Cursor(0, 3);
   lcd1602Print("Hello User");
@@ -159,14 +158,14 @@ void lcdThermometer(float temperature, float humidity) {
 void lcdWeather() {
     lcd1602Clear();
     lcd1602Cursor(0, 3);
-    lcd1602Printf("");
+    lcd1602Printf("Weather : ");
     lcd1602Cursor(1, 2);
-    lcd1602Printf("");
+    lcd1602Printf("Window : ");
 }
 
 void lcdCalender() {
     ds1302GetDateTime(&rtc_time);
-    // lcd1602Clear();
+    lcd1602Clear();
     lcd1602Cursor(0, 0);
     lcd1602Printf("Date:%.2d %.2d %.2d",rtc_time.year, rtc_time.month, rtc_time.day);
     lcd1602Cursor(1, 0);
