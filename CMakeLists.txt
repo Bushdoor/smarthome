@@ -19,7 +19,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Set the project name
-set(CMAKE_PROJECT_NAME led)
+set(CMAKE_PROJECT_NAME smarthome)
 
 # Enable compile command to ease indexing with e.g. clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
@@ -56,8 +56,6 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     MyApp
     MyApp/ap
-    MyApp/bsp
-    MyApp/common
     MyApp/hw
     MyApp/hw/driver
 )

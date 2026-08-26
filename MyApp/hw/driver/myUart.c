@@ -1,5 +1,4 @@
 #include "myUart.h"
-
 #include <stdint.h>
 #include <stdio.h>
 
