@@ -18,6 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "rtc.h"
+#include "tim.h"
+#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -63,7 +67,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-
+ 
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -85,6 +89,11 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_TIM3_Init();
+  MX_TIM2_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
   apInit();
   apMain();
