@@ -14,7 +14,25 @@ void apInit(void){
 }
 
 
+// ZS-040 블루투스 모듈에서 글자 받아오는 용 (기본 통신 확인)
+uint8_t rx;
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART1)
+    {
+        printf("RX: 0x%02X (%c)\r\n", rx, rx);
+
+        // 다음 1바이트 수신 대기
+        HAL_UART_Receive_IT(&huart1, &rx, 1);
+    }
+}
+
+
 void apMain(void){
+
+    // USART1 수신 시작
+    HAL_UART_Receive_IT(&huart1, &rx, 1);
 
     while (1)
     {

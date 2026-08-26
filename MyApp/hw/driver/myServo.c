@@ -8,7 +8,7 @@ void myServo_Init(void)
 {
     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
-    myServo_SetAngle(90);
+    myServo_SetAngle(0);
 }
 
 void myServo_SetAngle(uint8_t angle)
