@@ -2,6 +2,9 @@
 
 #include "main.h"
 #include "i2c.h"
+#include "myDht11.h"
+#include "myRtc.h"
+
 
 #include <stdint.h>
 #include <stdbool.h>

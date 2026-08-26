@@ -10,6 +10,8 @@ static uint8_t lcd1602_addr = 0x27<<1;
 static bool backlight_state = true;
 static bool lcd_ok = false;
 
+extern dht11Data_t dht_data;
+
 // 달력 출력용 RTC typedef
 static ds1302Time_t rtc_time = {0};
 
@@ -185,9 +187,12 @@ void lcdchangemod(int mod) {
     case 2:
         lcdCalender();
         break;
+
+    case 3:
+        lcdThermometer(dht_data.temperature, dht_data.humidity);
     
-    default:
-        lcdOpen();
-        break;
+    // default:
+    //     lcdOpen();
+    //     break;
     }
 }

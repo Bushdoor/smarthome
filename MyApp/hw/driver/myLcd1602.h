@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "myRtc.h" // 달력용 RTC
+#include "myDht11.h"
 
 #include <stdint.h>
 #include <stdbool.h>
