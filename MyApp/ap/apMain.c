@@ -10,6 +10,7 @@
 void apInit(void){
     myVs1838b_Init();
     myServo_Init();
+    myKeypad_Init();
 }
 
 
@@ -18,14 +19,21 @@ void apMain(void){
     while (1)
     {
         myVs1838b_Process();
+        myKeypad_Process();
 
-        char key;
-        key = Keypad_GetKey();
-        if (key != 0)
-        {
-            printf("%c\r\n",key);
-        }
-
-        HAL_Delay(300);
+        HAL_Delay(10);
     }
 }
+
+
+/*
+main
+ ↓
+IR 확인 → 없음 → 즉시 return
+ ↓
+Keypad 확인 → 없음 → 즉시 return
+ ↓
+10ms 대기
+ ↓
+반복
+*/

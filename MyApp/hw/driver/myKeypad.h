@@ -2,11 +2,12 @@
 
 #include "main.h"
 
+
 /* =========================
  * Keypad Pin Definition
  * ========================= */
 
-// Row
+// Row (GPIO output)
 #define R1_PORT     GPIOA
 #define R1_PIN      GPIO_PIN_11
 
@@ -19,7 +20,7 @@
 #define R4_PORT     GPIOB
 #define R4_PIN      GPIO_PIN_1
 
-// Column
+// Column (GPIO in pull-up)
 #define C1_PORT     GPIOA
 #define C1_PIN      GPIO_PIN_12
 
@@ -33,4 +34,9 @@
 #define C4_PIN      GPIO_PIN_8
 
 
-char Keypad_GetKey(void);
+/* =========================
+ * Function
+ * ========================= */
+
+void myKeypad_Init(void);
+void myKeypad_Process(void);
