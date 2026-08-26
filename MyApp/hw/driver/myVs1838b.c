@@ -2,6 +2,7 @@
 #include "tim.h"
 #include <stdio.h> // printf
 #include "myUart.h" // uart2 tx해서 teleplot 보는 용
+#include "myServo.h"
 
 static uint32_t prevTime = 0;
 
@@ -142,16 +143,22 @@ void myVs1838b_Process(void)
         case 0xA2:
             // CH-
             printf("CH-\r\n");
+            // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);
+            myServo_SetAngle(0);
             break;
 
         case 0x62:
             // CH
             printf("CH\r\n");
+            // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 1500);
+            myServo_SetAngle(90);
             break;
 
         case 0xE2:
             // CH+
             printf("CH+\r\n");
+            // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 2500);
+            myServo_SetAngle(180);
             break;
 
         case 0x22:
