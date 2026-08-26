@@ -30,7 +30,12 @@ void ssd1306DrawIcon(int16_t x, int16_t y, char ch, uint8_t color);
 void ssd1306DrawString(int16_t x, int16_t y, const char *str, uint8_t color);
 void ssd1306Printf(int16_t x, int16_t y, uint8_t color, const char *fmt, ...);
 void ssd1306Test(void);
+void ssd1306Default(void);
 
 
 // badapple용
 void ssd1306DrawFrame(const uint8_t *frame);
+void ssd1306Video();
+
+
+void ssd1306Show(uint8_t mod_num);

@@ -138,13 +138,12 @@ void lcd1602Printf(const char *fmt, ...) {
     lcd1602Print(buf);
 }
 
-void lcdOpen() {
+void lcdOpen(void) {
   lcd1602Clear();
   lcd1602Cursor(0, 3);
   lcd1602Print("Hello User");
   lcd1602Cursor(1, 2);
   lcd1602Print("Welcome Home");
-  HAL_Delay(3000);
 
 }
 
@@ -163,11 +162,32 @@ void lcdWeather() {
     lcd1602Printf("Window : ");
 }
 
-void lcdCalender() {
+void lcdCalender(void) {
     ds1302GetDateTime(&rtc_time);
     lcd1602Clear();
     lcd1602Cursor(0, 0);
     lcd1602Printf("Date:%.2d %.2d %.2d",rtc_time.year, rtc_time.month, rtc_time.day);
     lcd1602Cursor(1, 0);
     lcd1602Printf("Time: %.2d:%.2d:%.2d", rtc_time.hour, rtc_time.min, rtc_time.sec);
+}
+
+void lcdchangemod(int mod) {
+    switch (mod)
+    {
+    case 0:
+        lcdOpen();
+        break;
+        
+    case 1:
+        lcdWeather();
+        break;
+
+    case 2:
+        lcdCalender();
+        break;
+    
+    default:
+        lcdOpen();
+        break;
+    }
 }

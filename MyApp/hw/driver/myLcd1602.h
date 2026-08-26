@@ -22,5 +22,6 @@ void lcdOpen(void);
 // 기존코드 기준
 // lcdThermometer(dht_data.temperature, dht_data.humidity)로 사용
 void lcdThermometer(float temperature, float humidity);
-
+void lcdWeather();
 void lcdCalender();
+void lcdchangemod(int mod);
