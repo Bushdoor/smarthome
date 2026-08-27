@@ -621,7 +621,7 @@ void ssd1306Weather(void) {
 
 void ssd1306Show(uint8_t mod_num) {
     if (mod_num == 0) { ssd1306Default(); }
-    else if (mod_num == 3) { ssd1306Weather(); }
+    else if (mod_num == 1) { ssd1306Weather(); }
     else { ssd1306Video(); }
     // ssd1306DrawString(26,3,(char)mod_num);
 
