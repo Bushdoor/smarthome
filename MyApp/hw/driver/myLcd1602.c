@@ -1,5 +1,6 @@
 #include "myLcd1602.h"
 #include "i2c.h"
+#include "myAdcWater.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_def.h"
 #include "stm32f4xx_hal_i2c.h"
@@ -11,6 +12,7 @@ static bool backlight_state = true;
 static bool lcd_ok = false;
 
 extern dht11Data_t dht_data;
+// extern adcGetWater();
 
 // 달력 출력용 RTC typedef
 static ds1302Time_t rtc_time = {0};
@@ -159,8 +161,10 @@ void lcdThermometer(float temperature, float humidity) {
 void lcdWeather() {
     lcd1602Clear();
     lcd1602Cursor(0, 3);
+    // 물 수위센서 집어넣고 10mm정도 수위가 올라오면 비가 온다고 판단
     lcd1602Printf("Weather : ");
     lcd1602Cursor(1, 2);
+    // 모터에서 닫히고 열린상태 완료되면 뭔가를 보내고 여기서 받아서 판단
     lcd1602Printf("Window : ");
 }
 
@@ -174,25 +178,34 @@ void lcdCalender(void) {
 }
 
 void lcdchangemod(int mod) {
-    switch (mod)
-    {
-    case 0:
-        lcdOpen();
-        break;
+    if (is_fired) {
+        lcd1602Clear();
+        lcd1602Cursor(0, 0);
+        lcd1602Print("FireDetected");
+        lcd1602Cursor(1, 3);
+        lcd1602Print("EVACUATION");
+    }
+    else {
+        switch (mod)
+        {
+        case 0:
+            lcdOpen();
+            break;
+            
+        case 1:
+            lcdWeather();
+            break;
+
+        case 2:
+            lcdCalender();
+            break;
+
+        case 3:
+            lcdThermometer(dht_data.temperature, dht_data.humidity);
         
-    case 1:
-        lcdWeather();
-        break;
-
-    case 2:
-        lcdCalender();
-        break;
-
-    case 3:
-        lcdThermometer(dht_data.temperature, dht_data.humidity);
-    
-    // default:
-    //     lcdOpen();
-    //     break;
+        // default:
+        //     lcdOpen();
+        //     break;
+        }
     }
 }

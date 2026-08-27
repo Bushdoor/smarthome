@@ -103,6 +103,17 @@ int _fstat(int file, struct stat *st)
   return 0;
 }
 
+int _gettimeofday(struct timeval *tv, void *tzvp)
+{
+    if (tv != NULL)
+    {
+        tv->tv_sec = 0;
+        tv->tv_usec = 0;
+    }
+
+    return 0;
+}
+
 int _isatty(int file)
 {
   (void)file;

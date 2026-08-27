@@ -31,7 +31,6 @@ void adcInit(void)
 }
 
 
-
 /* DMA 변환 완료 콜백 함수 */
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {

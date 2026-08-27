@@ -59,6 +59,31 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define B1_Pin GPIO_PIN_13
+#define B1_GPIO_Port GPIOC
+#define B1_EXTI_IRQn EXTI15_10_IRQn
+#define IN1_Pin GPIO_PIN_0
+#define IN1_GPIO_Port GPIOC
+#define IN2_Pin GPIO_PIN_1
+#define IN2_GPIO_Port GPIOC
+#define IN3_Pin GPIO_PIN_2
+#define IN3_GPIO_Port GPIOC
+#define IN4_Pin GPIO_PIN_3
+#define IN4_GPIO_Port GPIOC
+#define Temperature_Sensor_Pin GPIO_PIN_1
+#define Temperature_Sensor_GPIO_Port GPIOA
+#define Button_Fan_Pin GPIO_PIN_7
+#define Button_Fan_GPIO_Port GPIOA
+#define UseRTC_Pin GPIO_PIN_10
+#define UseRTC_GPIO_Port GPIOB
+#define Reed_Open_Pin GPIO_PIN_14
+#define Reed_Open_GPIO_Port GPIOB
+#define Reed_Close_Pin GPIO_PIN_15
+#define Reed_Close_GPIO_Port GPIOB
+#define Button_Open_Pin GPIO_PIN_4
+#define Button_Open_GPIO_Port GPIOB
+#define Button_Close_Pin GPIO_PIN_5
+#define Button_Close_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

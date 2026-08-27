@@ -1,6 +1,8 @@
 #include "mySsd1306.h"
+#include "myFlame.h"
 #include "myUart.h"
 #include "i2c.h"
+#include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_i2c.h"
 #include <stdint.h>
 
@@ -618,11 +620,38 @@ void ssd1306Weather(void) {
     ssd1306Update();
 }
 
+void ssd1306Warning(void) {
+    while(1) {
+        if ((HAL_GetTick() % 1000) < 500) { 
+            ssd1306Clear(); 
+            ssd1306Update();
+        }
+        else {
+            memset(ssd1306_buffer, 0xFF, sizeof(ssd1306_buffer));
+            ssd1306Update();
+        }
+    }
+}
+
 
 void ssd1306Show(uint8_t mod_num) {
-    if (mod_num == 0) { ssd1306Default(); }
-    else if (mod_num == 1) { ssd1306Weather(); }
-    else { ssd1306Video(); }
-    // ssd1306DrawString(26,3,(char)mod_num);
+    if (is_fired) {
+        ssd1306Warning();
+    }
+    else {
+        switch (mod_num)
+        {
+            case 0 :
+                ssd1306Default();
+                break;
+            
+            case 1 :
+                ssd1306Weather();
+                break;
 
+            case 2 :
+                ssd1306Video();
+                break;
+        }
+    }
 }

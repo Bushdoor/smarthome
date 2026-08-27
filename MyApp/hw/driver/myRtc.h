@@ -6,10 +6,10 @@
 
 #define DS1302_RST_PIN    GPIO_PIN_10
 #define DS1302_RST_PORT   GPIOB
-
+//재설정
 #define DS1302_DAT_PIN    GPIO_PIN_4
 #define DS1302_DAT_PORT   GPIOB
-
+//재설정
 #define DS1302_CLK_PIN    GPIO_PIN_5
 #define DS1302_CLK_PORT   GPIOB
 

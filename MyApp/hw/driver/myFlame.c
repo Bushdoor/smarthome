@@ -1,5 +1,9 @@
 #include "myFlame.h"
 
+#include <stdio.h>
+
+volatile bool is_fired;
+
 void flameInit(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct = {0};
@@ -21,5 +25,6 @@ void flameInit(void)
 bool flameIsDetected(void)
 {
     // 액티브 LOW: 불꽃 감지 시 LOW(0) 반환
+    
     return (HAL_GPIO_ReadPin(FLAME_PORT, FLAME_PIN) == GPIO_PIN_RESET);
 }

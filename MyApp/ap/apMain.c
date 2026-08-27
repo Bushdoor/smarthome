@@ -8,6 +8,12 @@
 #include "myAdcWater.h"
 #include "myDht11.h"
 #include "myFlame.h"
+#include "motor.h"
+#include "reed.h"
+#include "button.h"
+
+#include "myTest.h"
+
 #include "stm32f411xe.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_adc.h"
@@ -24,13 +30,19 @@ uint8_t mod = 0;
 float water_depth = 0;
 dht11Data_t dht_data = {0};
 bool dht_status=false;
-int time = 0;
+int change_screen = 0;
+
+extern int mod_num;
 
 void apInit(void)
 {
     ds1302Init(); // RTC 초기화
     lcd1602Init(); // CLCD 초기화
     ssd1306Init(); // OLED 초기화
+
+    Motor_Init();
+    Reed_Init();
+    Button_Init();
 
     i2cScan(); // i2c 송신 존재 유무 확인
     adcInit();
@@ -48,20 +60,19 @@ void apMain(void)
     uint32_t tick_250 = 0;
     uint32_t tick_1000 = 0;
     uint32_t current_tick = 0;
-    int mod_num = 0;
+    // int mod_num = 0;
 
     ssd1306Clear();
 
     while (1) {
         current_tick = HAL_GetTick();
         adcUpdate();
-        bool is_fire = flameIsDetected();
         
         // 4x4패드 입력받아서 모드변경
-        int num = get_keynum();
-        if (num != -1) {
-            mod_num = num;
-        }
+        // int num = get_keynum();
+        // if (num != -1) {
+        //     mod_num = num;
+        // }
 
         
         if (current_tick - tick_1000 >= 1000) {
@@ -70,7 +81,8 @@ void apMain(void)
             /* DHT11 데이터 읽기 */
             dht11Read(&dht_data);
 
-            time++;
+            change_screen++;
+            if (change_screen == 5) { change_screen = 0;}
         }
         ssd1306Show(mod_num);
         
@@ -78,16 +90,35 @@ void apMain(void)
             tick_250 = current_tick;
 
             lcdchangemod(mod_num);
+            printf("%lu\n", Adc_GetWaterRaw());
+
 
         }
 
-
-        /* 3. 화재 발생 시 즉시 긴급 처리 (예: 능동 부저 울림, 모터 차단 등) */
-        if (is_fire)
+        /*--------------모터부분----------------------*/
+        // 열림 버튼 눌리는 순간 -> 열기/정지/재개 토글
+        if (Button_Open_Edge())
         {
-            // TODO: 키트에 있는 Active Buzzer(능동 부저)나 RGB LED 제어 코드 추가 가능
+            Motor_ToggleOpen();
         }
-        HAL_Delay(10);
+ 
+        // 닫힘 버튼 눌리는 순간 -> 닫기/정지/재개 토글
+        if (Button_Close_Edge())
+        {
+            Motor_ToggleClose();
+        }
+ 
+        // 매 루프마다 리드 스위치로 한계 도달 체크
+        Motor_CheckLimits();
+ 
+        // 팬 버튼 눌리는 순간 -> 속도 순환
+        if (Button_Fan_Edge())
+        {
+            Motor_ToggleFan();
+        }
+
+        /*--------------------------*/
+        
     }
 }
 
