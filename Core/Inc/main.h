@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Reed_Door_Pin GPIO_PIN_13
+#define Reed_Door_GPIO_Port GPIOC
 #define IN1_Pin GPIO_PIN_0
 #define IN1_GPIO_Port GPIOC
 #define IN2_Pin GPIO_PIN_1
@@ -71,6 +73,8 @@ void Error_Handler(void);
 #define Reed_Open_GPIO_Port GPIOB
 #define Reed_Close_Pin GPIO_PIN_15
 #define Reed_Close_GPIO_Port GPIOB
+#define Button_Blind_Pin GPIO_PIN_7
+#define Button_Blind_GPIO_Port GPIOC
 #define Button_Open_Pin GPIO_PIN_4
 #define Button_Open_GPIO_Port GPIOB
 #define Button_Close_Pin GPIO_PIN_5

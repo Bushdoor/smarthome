@@ -10,17 +10,22 @@ void Button_Init(void)
 // =================================
 uint8_t Button_Open_Pressed(void)
 {
-    return (HAL_GPIO_ReadPin(Button_Open_GPIO_Port, Button_Open_Pin) == GPIO_PIN_RESET);
+    return (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_4) == GPIO_PIN_RESET);
 }
 
 uint8_t Button_Close_Pressed(void)
 {
-    return (HAL_GPIO_ReadPin(Button_Close_GPIO_Port, Button_Close_Pin) == GPIO_PIN_RESET);
+    return (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) == GPIO_PIN_RESET);
 }
 
 uint8_t Button_Fan_Pressed(void)
 {
-    return (HAL_GPIO_ReadPin(Button_Fan_GPIO_Port, Button_Fan_Pin) == GPIO_PIN_RESET);
+    return (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_7) == GPIO_PIN_RESET);
+}
+
+uint8_t Button_Blind_Pressed(void)
+{
+    return (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == GPIO_PIN_RESET);
 }
 
 
@@ -49,6 +54,15 @@ uint8_t Button_Fan_Edge(void)
 {
     static uint8_t prev = 0;
     uint8_t now = Button_Fan_Pressed();
+    uint8_t edge = (now && !prev);
+    prev = now;
+    return edge;
+}
+
+uint8_t Button_Blind_Edge(void)
+{
+    static uint8_t prev = 0;
+    uint8_t now = Button_Blind_Pressed();
     uint8_t edge = (now && !prev);
     prev = now;
     return edge;

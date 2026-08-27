@@ -33,3 +33,12 @@ void Motor_ToggleOpen(void);   // 열림 버튼 눌렸을 때 호출: 열기 -> 
 void Motor_ToggleClose(void);  // 닫힘 버튼 눌렸을 때 호출: 닫기 -> 정지 -> 재개 토글
 void Motor_CheckLimits(void);  // 매 루프마다 호출: 리드 스위치로 한계 도달 시 자동 정지
 void Motor_ToggleFan(void);    // 팬 버튼 눌렸을 때 호출: 0 -> 300 -> 600 -> 999 -> 0 순환
+
+
+// 서보모터
+void Motor_ToggleBlind(void);
+
+void Motor_Lock(void);
+void Motor_Unlock(void);
+void Motor_CheckLock(void);
+uint8_t Motor_IsLocked(void);

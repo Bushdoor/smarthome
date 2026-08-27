@@ -20,6 +20,7 @@
 #include "main.h"
 #include "adc.h"
 #include "rtc.h"
+#include "spi.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -67,7 +68,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
- 
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -94,6 +95,8 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM2_Init();
   MX_RTC_Init();
+  MX_TIM4_Init();
+  MX_SPI3_Init();
   /* USER CODE BEGIN 2 */
   apInit();
   apMain();
