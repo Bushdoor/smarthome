@@ -1,0 +1,44 @@
+#pragma once
+
+#include "main.h"
+#include "i2c.h"
+#include "myDht11.h"
+#include "myRtc.h"
+#include "myFlame.h"
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdarg.h>
+
+
+#define SSD1306_I2C_ADDR (0x3C << 1) // 0x78
+#define SSD1306_WIDTH   128
+#define SSD1306_HEIGHT  64
+
+#define SSD1306_COLOR_BLACK 0
+#define SSD1306_COLOR_WHITE 1
+
+bool ssd1306Init(void);
+void ssd1306Clear(void);
+void ssd1306Update(void);
+void ssd1306DrawPixel(int16_t x, int16_t y, uint8_t color);
+void ssd1306DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, uint8_t color);
+void ssd1306DrawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint8_t color);
+void ssd1306FillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint8_t color);
+void ssd1306DrawChar(int16_t x, int16_t y, char ch, uint8_t color);
+void ssd1306DrawIcon(int16_t x, int16_t y, char ch, uint8_t color);
+void ssd1306DrawString(int16_t x, int16_t y, const char *str, uint8_t color);
+void ssd1306Printf(int16_t x, int16_t y, uint8_t color, const char *fmt, ...);
+void ssd1306Test(void);
+void ssd1306Default(void);
+
+
+// badapple용
+void ssd1306DrawFrame(const uint8_t *frame);
+void ssd1306Video();
+
+
+void ssd1306Show(uint8_t mod_num);
