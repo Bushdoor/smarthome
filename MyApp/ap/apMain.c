@@ -20,6 +20,7 @@
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_adc.h"
 #include "stm32f4xx_hal_gpio.h"
+#include "tim.h"
 
 #include <stdint.h>
 #include <stdio.h>

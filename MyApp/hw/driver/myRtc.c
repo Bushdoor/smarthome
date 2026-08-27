@@ -237,7 +237,7 @@ void ds1302SetBuildTime(void)
 
 void ds1302Init(void)
 {
-  ds1302GpioInit();
+ // ds1302GpioInit();
 
   /* Write Protect 해제 */
   ds1302WriteReg(DS1302_REG_WP, 0x00);

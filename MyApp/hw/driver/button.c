@@ -28,7 +28,6 @@ uint8_t Button_Blind_Pressed(void)
     return (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == GPIO_PIN_RESET);
 }
 
-
 // =================================
 // 고수준 : 눌리는 순간(Rising edge)에만 1
 // =================================

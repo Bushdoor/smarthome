@@ -51,8 +51,8 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : Reed_Door_Pin Button_Blind_Pin */
-  GPIO_InitStruct.Pin = Reed_Door_Pin|Button_Blind_Pin;
+  /*Configure GPIO pins : Reed_Door_Pin Button_Blind_Pin PC8 */
+  GPIO_InitStruct.Pin = Reed_Door_Pin|Button_Blind_Pin|GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
