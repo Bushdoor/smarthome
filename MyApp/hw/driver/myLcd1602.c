@@ -160,9 +160,28 @@ void lcdThermometer(float temperature, float humidity) {
 
 void lcdWeather() {
     lcd1602Clear();
-    lcd1602Cursor(0, 3);
     // 물 수위센서 집어넣고 10mm정도 수위가 올라오면 비가 온다고 판단
-    lcd1602Printf("Weather : ");
+    if ( adcGetWater() > 30 ) { 
+        lcd1602Cursor(0, 0);
+        lcd1602Printf("VeryHeavyRain:%.1f",adcGetWater()); 
+    }
+    else if ( 15 < adcGetWater() && adcGetWater() <= 30) {
+        lcd1602Cursor(0, 1);
+        lcd1602Printf("HeavyRain:%.1f",adcGetWater());
+    }
+    else if ( 3 < adcGetWater() && adcGetWater() <= 15) {
+        lcd1602Cursor(0, 4);
+        lcd1602Printf("Rain:%.2f",adcGetWater());
+    }
+    else if ( 0.5 < adcGetWater() && adcGetWater() <= 3) {
+        lcd1602Cursor(0, 2);
+        lcd1602Printf("WeakRain:%.2f",adcGetWater());
+    }
+    else {
+        lcd1602Cursor(0, 3);
+        lcd1602Print("It's Sunny");
+    }
+ 
     lcd1602Cursor(1, 2);
     // 모터에서 닫히고 열린상태 완료되면 뭔가를 보내고 여기서 받아서 판단
     lcd1602Printf("Window : ");
@@ -173,17 +192,21 @@ void lcdCalender(void) {
     lcd1602Clear();
     lcd1602Cursor(0, 0);
     lcd1602Printf("Date:%.2d %.2d %.2d",rtc_time.year, rtc_time.month, rtc_time.day);
-    lcd1602Cursor(1, 0);
+    lcd1602Cursor(1, 1);
     lcd1602Printf("Time: %.2d:%.2d:%.2d", rtc_time.hour, rtc_time.min, rtc_time.sec);
 }
 
+void lcdWarning(void) {
+    lcd1602Clear();
+    lcd1602Cursor(0, 0);
+    lcd1602Printf("FireDetected");
+    lcd1602Cursor(1, 3);
+    lcd1602Printf("EVACUATION");
+}
+
 void lcdchangemod(int mod) {
-    if (is_fired) {
-        lcd1602Clear();
-        lcd1602Cursor(0, 0);
-        lcd1602Print("FireDetected");
-        lcd1602Cursor(1, 3);
-        lcd1602Print("EVACUATION");
+    if (!is_fired) {
+        lcdWarning();
     }
     else {
         switch (mod)
@@ -203,9 +226,6 @@ void lcdchangemod(int mod) {
         case 3:
             lcdThermometer(dht_data.temperature, dht_data.humidity);
         
-        // default:
-        //     lcdOpen();
-        //     break;
         }
     }
 }

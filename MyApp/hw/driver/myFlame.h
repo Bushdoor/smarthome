@@ -12,3 +12,4 @@ extern volatile bool is_fired;
 
 void flameInit(void);
 bool flameIsDetected(void);
+void flameUpdate(void);

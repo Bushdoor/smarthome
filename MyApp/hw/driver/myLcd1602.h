@@ -27,3 +27,4 @@ void lcdThermometer(float temperature, float humidity);
 void lcdWeather();
 void lcdCalender();
 void lcdchangemod(int mod);
+void lcdWarning();

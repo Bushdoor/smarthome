@@ -28,3 +28,8 @@ bool flameIsDetected(void)
     
     return (HAL_GPIO_ReadPin(FLAME_PORT, FLAME_PIN) == GPIO_PIN_RESET);
 }
+
+void flameUpdate(void)
+{
+    is_fired = flameIsDetected();
+}

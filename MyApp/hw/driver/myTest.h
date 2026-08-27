@@ -3,3 +3,6 @@
 #include "main.h"
 
 #include "myFlame.h"
+
+
+void testinit();

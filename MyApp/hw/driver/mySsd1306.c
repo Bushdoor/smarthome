@@ -1,4 +1,5 @@
 #include "mySsd1306.h"
+#include "myAdcWater.h"
 #include "myFlame.h"
 #include "myUart.h"
 #include "i2c.h"
@@ -597,17 +598,17 @@ void ssd1306Weather(void) {
     ssd1306PrintfScale( 72, 15, SSD1306_COLOR_WHITE, 2, "%.0fC", dht_data.temperature );
     ssd1306PrintfScale( 72, 31, SSD1306_COLOR_WHITE, 2, "%.0f%%", dht_data.humidity );
     ssd1306Printf(66, 50, SSD1306_COLOR_WHITE, "%.2d:%.2d:%.2d", rtc_time.hour, rtc_time.min, rtc_time.sec);
-    if (weather == 0)
+    if (adcGetWater() < 3)
     {
         ssd1306DrawBitmap(weather_x, weather_y, weather_sun_40x40,
                       40, 40, SSD1306_COLOR_WHITE);
     }
-    else if (weather == 1)
+    else if (3<= adcGetWater() && adcGetWater() <= 5)
     {
         ssd1306DrawBitmap(weather_x, weather_y, weather_cloud_40x40,
                       40, 40, SSD1306_COLOR_WHITE);
     }
-    else if (weather == 2)
+    else if (5 < adcGetWater())
     {
         ssd1306DrawBitmap(weather_x, weather_y, weather_rain_40x40,
                       40, 40, SSD1306_COLOR_WHITE);
@@ -621,25 +622,23 @@ void ssd1306Weather(void) {
 }
 
 void ssd1306Warning(void) {
-    while(1) {
-        if ((HAL_GetTick() % 1000) < 500) { 
-            ssd1306Clear(); 
-            ssd1306Update();
-        }
-        else {
-            memset(ssd1306_buffer, 0xFF, sizeof(ssd1306_buffer));
-            ssd1306Update();
-        }
+    if ((HAL_GetTick() % 1000) < 500) { 
+        ssd1306Clear(); 
+        ssd1306Update();
+    }
+    else {
+        memset(ssd1306_buffer, 0xFF, sizeof(ssd1306_buffer));
+        ssd1306Update();
     }
 }
 
 
-void ssd1306Show(uint8_t mod_num) {
-    if (is_fired) {
+void ssd1306Show(uint8_t mod) {
+    if (!is_fired) {
         ssd1306Warning();
     }
     else {
-        switch (mod_num)
+        switch (mod)
         {
             case 0 :
                 ssd1306Default();

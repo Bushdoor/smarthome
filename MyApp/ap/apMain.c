@@ -52,6 +52,8 @@ void apInit(void)
 
     dht11Read(&dht_data); // 처음에 온도 0뜨는거 보기싫어서 Init할때 한번 읽기
 
+
+    
 }
 
 
@@ -59,40 +61,35 @@ void apMain(void)
 {
     uint32_t tick_250 = 0;
     uint32_t tick_1000 = 0;
+    uint32_t halfhour = 0;
     uint32_t current_tick = 0;
-    // int mod_num = 0;
 
     ssd1306Clear();
 
     while (1) {
         current_tick = HAL_GetTick();
         adcUpdate();
+        flameUpdate();
         
-        // 4x4패드 입력받아서 모드변경
-        // int num = get_keynum();
-        // if (num != -1) {
-        //     mod_num = num;
-        // }
-
+        ssd1306Show(mod_num);
         
+        if (current_tick - halfhour >= 1800000) {
+            halfhour = current_tick;
+            long rainfall = adcGetWater();
+        }
         if (current_tick - tick_1000 >= 1000) {
             tick_1000 = current_tick;
             
             /* DHT11 데이터 읽기 */
             dht11Read(&dht_data);
-
+            
             change_screen++;
             if (change_screen == 5) { change_screen = 0;}
         }
-        ssd1306Show(mod_num);
         
         if (current_tick - tick_250 >= 250) {
             tick_250 = current_tick;
-
             lcdchangemod(mod_num);
-            printf("%lu\n", Adc_GetWaterRaw());
-
-
         }
 
         /*--------------모터부분----------------------*/
