@@ -75,7 +75,6 @@ void apMain(void)
         
         if (current_tick - halfhour >= 1800000) {
             halfhour = current_tick;
-            long rainfall = adcGetWater();
         }
         if (current_tick - tick_1000 >= 1000) {
             tick_1000 = current_tick;

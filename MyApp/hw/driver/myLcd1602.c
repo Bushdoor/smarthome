@@ -161,21 +161,9 @@ void lcdThermometer(float temperature, float humidity) {
 void lcdWeather() {
     lcd1602Clear();
     // 물 수위센서 집어넣고 10mm정도 수위가 올라오면 비가 온다고 판단
-    if ( adcGetWater() > 30 ) { 
-        lcd1602Cursor(0, 0);
-        lcd1602Printf("VeryHeavyRain:%.1f",adcGetWater()); 
-    }
-    else if ( 15 < adcGetWater() && adcGetWater() <= 30) {
-        lcd1602Cursor(0, 1);
-        lcd1602Printf("HeavyRain:%.1f",adcGetWater());
-    }
-    else if ( 3 < adcGetWater() && adcGetWater() <= 15) {
+    if ( 10 < adcGetWater()) {
         lcd1602Cursor(0, 4);
         lcd1602Printf("Rain:%.2f",adcGetWater());
-    }
-    else if ( 0.5 < adcGetWater() && adcGetWater() <= 3) {
-        lcd1602Cursor(0, 2);
-        lcd1602Printf("WeakRain:%.2f",adcGetWater());
     }
     else {
         lcd1602Cursor(0, 3);
