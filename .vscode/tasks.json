@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "C:\\ST\\STM32CubeIDE_2.2.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.2.500.202603051304\\tools\\bin\\STM32_Programmer_CLI.exe",
             "args": [
-                "-c", "port=SWD",
+                "-c", "port=SWD", "sn=066EFF495365495067183331",
                 "-w", "build/Debug/miniproject2.elf",
                 "-v",
                 "-rst"
