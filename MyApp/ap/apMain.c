@@ -13,6 +13,8 @@
 #include "reed.h"
 #include "button.h"
 #include "rfid.h"
+#include "myLED.h"
+#include "myBuzzer.h"
 
 #include "myTest.h"
 
@@ -51,6 +53,8 @@ void apInit(void)
     adcInit();
     dht11Init();
     flameInit();
+    rgbLedInit();
+    buzzerInit();
     uartInit(); // uart 송신 초기화
 
     dht11Read(&dht_data); // 처음에 온도 0뜨는거 보기싫어서 Init할때 한번 읽기
@@ -142,6 +146,18 @@ void apMain(void)
 
         HAL_Delay(10);
         /*--------------------------*/
+        /*-------------RGB, 부저-------------*/
+        if (is_fired)
+        {
+            // TODO: 키트에 있는 Active Buzzer(능동 부저)나 RGB LED 제어 코드 추가 가능
+            rgbLedSetRed();
+            buzzerOn();       // 부저 삐- 경보음
+        }
+        else
+        {
+            rgbLedSetWhite(); // 평상시 -> 흰색
+            buzzerOff();      // 부저 끔
+        }
     }
 }
 
