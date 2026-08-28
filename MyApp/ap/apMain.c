@@ -8,6 +8,7 @@
 #include "myUart.h"
 #include "myBle.h"   // 추가
 #include "myRgb.h"   // 추가
+#include "myBuzzer.h"   // 추가
 
 #include <stdint.h>
 #include <stdio.h>
@@ -22,6 +23,7 @@ void apInit(void)
     flameInit();
     bleInit();       // 추가
     rgbLedInit();
+    buzzerInit();    // 추가: 부저 초기화
 }
 
 float water_depth = 0;
@@ -81,10 +83,12 @@ void apMain(void)
         {
             // TODO: 키트에 있는 Active Buzzer(능동 부저)나 RGB LED 제어 코드 추가 가능
             rgbLedSetRed();
+            buzzerOn();       // 부저 삐- 경보음
         }
         else
         {
             rgbLedSetWhite(); // 평상시 -> 흰색
+            buzzerOff();      // 부저 끔
         }
 
         HAL_Delay(10);

@@ -21,7 +21,7 @@ void rgbLedSetWhite(void)
 {
     HAL_GPIO_WritePin(RGB_PORT, RED_PIN, GPIO_PIN_SET);
     HAL_GPIO_WritePin(RGB_PORT, GREEN_PIN, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(RGB_PORT, BLUE_PIN, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(RGB_PORT_B, BLUE_PIN, GPIO_PIN_SET);
 }
 
 // R만 Turn ON, G/B Turn OFF -> 빨간색
@@ -29,5 +29,5 @@ void rgbLedSetRed(void)
 {
     HAL_GPIO_WritePin(RGB_PORT, RED_PIN, GPIO_PIN_SET);
     HAL_GPIO_WritePin(RGB_PORT, GREEN_PIN, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(RGB_PORT, BLUE_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(RGB_PORT_B, BLUE_PIN, GPIO_PIN_RESET);
 }
