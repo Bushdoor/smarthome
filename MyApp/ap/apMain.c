@@ -6,7 +6,8 @@
 #include "myDht11.h"
 #include "myFlame.h"
 #include "myUart.h"
-
+#include "myBle.h"   // 추가
+#include "myRgb.h"   // 추가
 
 #include <stdint.h>
 #include <stdio.h>
@@ -19,6 +20,8 @@ void apInit(void)
     adcInit();
     dht11Init();
     flameInit();
+    bleInit();       // 추가
+    rgbLedInit();
 }
 
 float water_depth = 0;
@@ -30,6 +33,9 @@ void apMain(void)
 {
     uint32_t last_dht_tick = 0;
     dht11Data_t dht_data = {0};
+
+        /* 연결 확인용 최초 인사 메시지 */
+    bleSend("STM32 BLE Ready\r\n");
     while (1) {
         uint32_t current_tick = HAL_GetTick();
 
@@ -42,6 +48,19 @@ void apMain(void)
         // dht_status = dht11Read(&dht_data);
 
         // HAL_Delay(10);
+
+                /* BLE 수신 확인 */
+        if (bleAvailable())
+        {
+            char line[BLE_RX_BUF_SIZE];
+            bleGetLine(line, sizeof(line));
+            printf("BLE RX: %s\r\n", line);   // USART2(디버그)로 로그
+
+            /* 받은 문자열 그대로 폰에 에코 (동작 확인용) */
+            bleSend("Echo: ");
+            bleSend(line);
+            bleSend("\r\n");
+        }
         if (current_tick - last_dht_tick >= 1000)
         {
             last_dht_tick = HAL_GetTick();
@@ -61,6 +80,11 @@ void apMain(void)
         if (is_fire)
         {
             // TODO: 키트에 있는 Active Buzzer(능동 부저)나 RGB LED 제어 코드 추가 가능
+            rgbLedSetRed();
+        }
+        else
+        {
+            rgbLedSetWhite(); // 평상시 -> 흰색
         }
 
         HAL_Delay(10);
