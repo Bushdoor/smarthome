@@ -53,6 +53,9 @@ uint8_t frame_buf[FRAME_SIZE];
 /* 1024바이트 수신 완료 플래그 */
 volatile uint8_t frame_ready = 0;
 
+/* ZS-040 블루투스 모듈에서 글자 받아오는 용 */
+uint8_t btChar;
+
 
 /* =========================================================
  * UART 초기화
@@ -70,6 +73,12 @@ void uartInit(void)
         frame_buf,
         FRAME_SIZE
     );
+
+    HAL_UART_Receive_IT(
+        &huart6, 
+        &btChar, 
+        1
+    );
 }
 
 
@@ -84,6 +93,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     if (huart->Instance == USART2)
     {
         frame_ready = 1;
+    }
+
+    // 블루투스 모듈 (PA12 - RX, PC6 - TX)
+    if (huart->Instance == USART6)
+    {
+        HAL_UART_Receive_IT(&huart6, &btChar, 1);
     }
 }
 

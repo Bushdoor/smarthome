@@ -16,3 +16,6 @@ extern uint8_t frame_buf[FRAME_SIZE];
 
 /* 1024바이트 프레임 수신 완료 */
 extern volatile uint8_t frame_ready;
+
+/* ZS-040 블루투스 모듈에서 글자 받아오는 용 */
+extern uint8_t btChar;

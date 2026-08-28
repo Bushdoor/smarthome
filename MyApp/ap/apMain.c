@@ -159,6 +159,47 @@ void apMain(void)
             buzzerOff();      // 부저 끔
         }
     }
+
+    /* BluetoothLE 앱에서 BTHOME 찾아서 커넥트하고,
+        a, b, c, d, e, f 를 send하면,
+        다음 케이스코드 실행 */
+        switch (btChar)
+        {
+            case 'a':
+                HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+                printf("a\r\n");
+                break;
+
+            case 'b':
+                HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+                printf("b\r\n");
+                break;
+
+            case 'c':
+                HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+                printf("c\r\n");
+                break;
+
+            case 'd':
+                HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+                printf("d\r\n");
+                break;
+
+            case 'e':
+                HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+                printf("e\r\n");
+                break;
+
+            case 'f':
+                HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+                printf("f\r\n");
+                break;
+
+            default:
+                break;
+        }
+        btChar = 0;
+
 }
 
 /* Debug
