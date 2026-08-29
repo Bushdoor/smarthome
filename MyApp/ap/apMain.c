@@ -145,18 +145,28 @@ void apMain(void)
         }
 
         HAL_Delay(10);
-        /*--------------------------*/
+        /*---------------LED-----------------*/
+        if (Button_LED_Edge())
+        {
+            roomLedToggle();
+        }
         /*-------------RGB, 부저-------------*/
         if (is_fired)
         {
-            // TODO: 키트에 있는 Active Buzzer(능동 부저)나 RGB LED 제어 코드 추가 가능
-            rgbLedSetRed();
-            buzzerOn();       // 부저 삐- 경보음
+            if (rgbIsEnabled())
+            {
+                rgbLedSetRed();
+            }
+            buzzerOn();
         }
         else
         {
-            rgbLedSetWhite(); // 평상시 -> 흰색
-            buzzerOff();      // 부저 끔
+
+            if (Button_RGB_Edge())
+            {
+                rgbLedToggle();
+            }
+            buzzerOff();
         }
     }
 
